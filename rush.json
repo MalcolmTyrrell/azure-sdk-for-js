@@ -696,6 +696,11 @@
       "packageName": "@azure/iot-device-update",
       "projectFolder": "sdk/deviceupdate/iot-device-update",
       "versionPolicyName": "client"
+    },
+    {
+      "packageName": "@azure/mixedreality-remoterendering",
+      "projectFolder": "sdk/mixedreality/mixedreality-remoterendering",
+      "versionPolicyName": "client"
     }
   ]
 }
