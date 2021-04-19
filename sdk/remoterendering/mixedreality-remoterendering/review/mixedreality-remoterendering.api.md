@@ -6,13 +6,12 @@
 
 import { AccessToken } from '@azure/core-auth';
 import { AzureKeyCredential } from '@azure/core-auth';
-import { HttpResponse } from '@azure/core-http';
-import { OperationOptions } from '@azure/core-http';
+import { OperationOptions } from '@azure/core-client';
 import { PagedAsyncIterableIterator } from '@azure/core-paging';
-import { PipelineOptions } from '@azure/core-http';
+import { PipelineOptions } from '@azure/core-rest-pipeline';
 import { PollerLike } from '@azure/core-lro';
 import { PollOperationState } from '@azure/core-lro';
-import { TokenCredential } from '@azure/core-http';
+import { TokenCredential } from '@azure/core-auth';
 
 // @public
 export interface AssetConversion {
@@ -97,7 +96,7 @@ export class RemoteRenderingClient {
     getConversion(conversionId: string, options?: OperationOptions): Promise<WithResponse<AssetConversion>>;
     getConversionPoller(conversionId: string, options?: OperationOptions): Promise<AssetConversionPollerLike>;
     getSession(sessionId: string, options?: OperationOptions): Promise<WithResponse<RenderingSession>>;
-    getSessionPoller(sessionId: string, options?: OperationOptions): Promise<AssetConversionPollerLike>;
+    getSessionPoller(sessionId: string, options?: OperationOptions): Promise<RenderingSessionPollerLike>;
     listConversions(options?: OperationOptions): PagedAsyncIterableIterator<AssetConversion>;
     listSessions(options?: OperationOptions): PagedAsyncIterableIterator<RenderingSession>;
     updateSession(sessionId: string, updateSessionSettings: UpdateSessionSettings, options?: OperationOptions): Promise<WithResponse<RenderingSession>>;
@@ -137,20 +136,8 @@ export interface RenderingSession {
 }
 
 // @public (undocumented)
-export class RenderingSessionOperationState implements PollOperationState<WithResponse<RenderingSession>> {
-    constructor(client: RemoteRenderingClient, conversionState: WithResponse<RenderingSession>);
-    // (undocumented)
-    get error(): Error | undefined;
-    // (undocumented)
-    get isCancelled(): boolean;
-    // (undocumented)
-    get isCompleted(): boolean;
-    // (undocumented)
-    get isStarted(): boolean;
-    // (undocumented)
+export interface RenderingSessionOperationState extends PollOperationState<WithResponse<RenderingSession>> {
     latestResponse: WithResponse<RenderingSession>;
-    // (undocumented)
-    get result(): WithResponse<RenderingSession>;
 }
 
 // @public (undocumented)
@@ -168,9 +155,7 @@ export interface UpdateSessionSettings {
 }
 
 // @public
-export type WithResponse<T extends object> = T & {
-    _response: HttpResponse;
-};
+export type WithResponse<T extends object> = T;
 
 
 // (No @packageDocumentation comment for this package)

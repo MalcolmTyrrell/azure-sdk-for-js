@@ -5,7 +5,7 @@ import { PollOperationState, Poller, PollOperation } from "@azure/core-lro";
 import { WithResponse } from "../remoteRenderingClient";
 import { RenderingSession, KnownRenderingSessionStatus } from "../generated/models/index";
 import { getSessionInternal } from "../internal/commonQueries";
-import { delay, AbortSignalLike } from "@azure/core-http";
+import { AbortSignalLike } from "@azure/abort-controller";
 import { RemoteRendering } from "../generated/operations";
 
 export interface RenderingSessionOperationState
@@ -128,7 +128,7 @@ export class RenderingSessionPoller extends Poller<
    * The method used by the poller to wait before attempting to update its operation.
    */
   async delay(): Promise<void> {
-    return delay(this.intervalInMs);
+    // return delay(this.intervalInMs);
   }
 
   /**

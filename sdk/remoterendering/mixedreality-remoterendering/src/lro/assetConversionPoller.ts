@@ -6,7 +6,7 @@ import { WithResponse } from "../remoteRenderingClient";
 import { AssetConversion, KnownAssetConversionStatus } from "../generated/models/index";
 import { RemoteRendering } from "../generated/operations";
 import { getConversionInternal } from "../internal/commonQueries";
-import { delay, AbortSignalLike } from "@azure/core-http";
+import { AbortSignalLike } from "@azure/abort-controller";
 
 export interface AssetConversionOperationState
   extends PollOperationState<WithResponse<AssetConversion>> {
@@ -119,7 +119,7 @@ export class AssetConversionPoller extends Poller<
    * The method used by the poller to wait before attempting to update its operation.
    */
   async delay(): Promise<void> {
-    return delay(this.intervalInMs);
+    // return delay(this.intervalInMs);
   }
 
   /**
